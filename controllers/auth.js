@@ -53,6 +53,8 @@ const authentication = {
         try {
             let { firstName, lastName, email, password } = req.body;
 
+            console.log(`username: ${firstName}`);
+
             // check if all the data is present in the body else return a proper error message
             if (!firstName || !lastName || !email || !password) {
                 return res.status(400).json({ success: false, message: "corrupted payload" });

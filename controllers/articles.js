@@ -1,8 +1,7 @@
 const articleModel = require("../models/article");
-const user = require("../models/article");
 const articleFxn = {
     getAllArticles: (req, res) => {
-        user.find({})
+        articleModel.find({})
             .then(article => {
                 res.status(200).json(
                     {
@@ -23,7 +22,7 @@ const articleFxn = {
     getArticlesById: (req, res) => {
         const articleId = req.params.id;
 
-        user.findById(articleId)
+        articleModel.findById(articleId)
             .then(foundArticle => {
                 if (!foundArticle) {
                     return res.status(401).json({
@@ -41,7 +40,7 @@ const articleFxn = {
     },
 
     deleteAllArticles: (req, res) => {
-        user.deleteMany({})
+        articleModel.deleteMany({})
             .then(sample => {
                 return res.sendStatus(sample.deletedCount)
             }).catch(err => {
@@ -52,7 +51,7 @@ const articleFxn = {
     },
     deleteArticleById: (req, res) => {
         const id = req.params.id
-        user.findByIdAndDelete(id)
+        articleModel.findByIdAndDelete(id)
             .then(sample => {
                 return res.status(200).json({ message: `${sample.title} deleted with success` })
             }).catch(err => {
@@ -89,7 +88,7 @@ const articleFxn = {
         }
     },
     createArticle: async (req, res) => {
-        let { title, description, tags,} = req.body;
+        let { title, description, author, tags,} = req.body;
         try {
             if (!title || !description) return res.json({ message: "invald payload" });
             const createdArticle = await articleModel.create(
@@ -97,11 +96,12 @@ const articleFxn = {
                     "title": title,
                     "description": description,
                     "tags": tags,
+                    "author":author
                 }
             );
             res.json({
                 message: "created successfully",
-                data: createdArticleArticle
+                data: createdArticle
             })
         } catch (error) {
             console.log(error.message);
