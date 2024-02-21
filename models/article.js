@@ -21,15 +21,18 @@ const article = new schema(
         },
         likes: {
             type: Number,
-            require: false
+            require: false,
+            default:0
         },
         shares: {
             type: Number,
-            require: false
+            require: false,
+            default:0
         },
         comments: {
-            type: String,
-            require: false
+            type: [String],
+            require: false,
+            default:[]
         },
         status:{
             type:String,
