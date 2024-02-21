@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const Users = require("../models/user")
 const schema = mongoose.Schema;
 
 const article = new schema(
@@ -12,12 +13,12 @@ const article = new schema(
             required: true
         },
         author: {
-            $type: mongoose.Schema.Type.ObjectId,
-            ref: "Users"
+            type: mongoose.Schema.Types.ObjectId,
+            $ref:"Users"
         },
         tags: {
             type: Array,
-            required: fasle
+            required: false
         },
         likes: {
             type: Number,
